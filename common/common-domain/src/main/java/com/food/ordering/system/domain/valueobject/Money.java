@@ -1,11 +1,13 @@
 package com.food.ordering.system.domain.valueobject;
 
-import java.math.RoundingMode;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 public class Money {
     private final BigDecimal amount;
+
+    public static final Money ZERO = new Money(BigDecimal.ZERO);
 
     public Money(BigDecimal amount) {
         this.amount = amount;
@@ -27,7 +29,7 @@ public class Money {
         return new Money(setScale(this.amount.subtract(money.getAmount())));
     }
 
-    public Money subtract(int multiplayer) {
+    public Money multiply(int multiplayer) {
         return new Money(setScale(this.amount.multiply(new BigDecimal(multiplayer))));
     }
 
