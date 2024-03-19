@@ -5,17 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.matcodem</groupId>
-        <artifactId>order-domain</artifactId>
+        <artifactId>food-ordering-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>order-domain-core</artifactId>
+    <artifactId>common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>common-domain</module>
+    </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.matcodem</groupId>
-            <artifactId>common-domain</artifactId>
-        </dependency>
-    </dependencies>
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>
