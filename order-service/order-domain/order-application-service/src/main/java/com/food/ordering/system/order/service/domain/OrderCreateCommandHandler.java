@@ -6,7 +6,7 @@ import com.food.ordering.system.order.service.domain.dto.create.CreateOrderComma
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
 import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;
-import com.food.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessage;
+import com.food.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +18,12 @@ public class OrderCreateCommandHandler {
 
 	private final OrderCreateHelper orderCreateHelper;
 	private final OrderDataMapper orderDataMapper;
-	private final OrderCreatedPaymentRequestMessage orderCreatedPaymentRequestMessage;
+	private final OrderCreatedPaymentRequestMessagePublisher orderCreatedPaymentRequestMessagePublisher;
 
 	public CreateOrderResponse createOrder(CreateOrderCommand command) {
 		OrderCreatedEvent orderCreatedEvent = orderCreateHelper.persistOrder(command);
 		log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
-		orderCreatedPaymentRequestMessage.publish(orderCreatedEvent);
-		return orderDataMapper.orderToCreateOrderResponse(orderCreatedEvent.getOrder());
+		orderCreatedPaymentRequestMessagePublisher.publish(orderCreatedEvent);
+		return orderDataMapper.orderToCreateOrderResponse(orderCreatedEvent.getOrder(), "Order Created Successfully");
 	}
 }
