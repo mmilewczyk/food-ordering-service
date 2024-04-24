@@ -18,7 +18,8 @@
     <modules>
         <module>order-service</module>
         <module>common</module>
-    </modules>
+		<module>infrastructure</module>
+	</modules>
 
     <properties>
         <mockito.version>4.11.0</mockito.version>
