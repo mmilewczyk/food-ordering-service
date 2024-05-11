@@ -17,19 +17,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
 
-	private final OrderJpaRepository jpaRepository;
-	private OrderDataAccessMapper mapper;
+	private final OrderJpaRepository orderJpaRepository;
+	private OrderDataAccessMapper orderDataAccessMapper;
 
 	@Override
 	public Order save(Order order) {
-		OrderEntity orderEntity = mapper.orderToOrderEntity(order);
-		orderEntity = jpaRepository.save(orderEntity);
-		return mapper.orderEntityToOrder(orderEntity);
+		OrderEntity orderEntity = orderDataAccessMapper.orderToOrderEntity(order);
+		orderEntity = orderJpaRepository.save(orderEntity);
+		return orderDataAccessMapper.orderEntityToOrder(orderEntity);
 	}
 
 	@Override
 	public Optional<Order> findByTrackingId(TrackingId trackingId) {
-		return jpaRepository.findByTrackingId(trackingId.getValue())
-				.map(mapper::orderEntityToOrder);
+		return orderJpaRepository.findByTrackingId(trackingId.getValue())
+				.map(orderDataAccessMapper::orderEntityToOrder);
 	}
 }
